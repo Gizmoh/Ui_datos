@@ -1,0 +1,215 @@
+#:kivy 1.7.2
+
+<CBoton>:
+	##Boton custom para representar datos
+	size_hint: None,None
+	size:"120dp","90dp"
+	text_size: 85, None
+	multiline: True
+
+<row>:
+	##Definicion del objeto usado para crear la grilla
+	canvas:
+		Color:
+			rgb: 1,1,1
+		Rectangle:
+			size: self.size
+			pos: self.pos
+	orientation: "horizontal"
+	name: nombre
+	code: codigo
+	quantity: cantidad
+	close: Close
+	add: add
+	priceU: precioU
+	priceT: precioT
+	size_hint: 1,None
+	height: "30dp"
+	Button:
+		##Boton para agregar mas productos
+		id: add
+		size_hint: None,1
+		width: 33
+		Image:
+			source: 'mas.png'
+			y: self.parent.y-35
+			x: self.parent.x-33
+			allow_stretch: False
+	Label:
+		##Label que contiene el codigo del producto
+		id: codigo
+		shorten: True
+		color: 0,0,0,1
+		text_size: None, None
+		multiline: True
+		text: "TEXT"
+		font_size: "14dp"
+		size_hint_x:None
+		width: "200dp"
+	Label:
+		##Label que contiene el nombre del producto
+		id: nombre
+		text: "1337"
+		shorten: True
+		text_size: 85, None
+		color: 0,0,0,1
+		font_size: "14dp"
+		width: 90
+	Label:
+		##Label que contiene el precio unitario
+		id: precioU
+		color: 0,0,0,1
+		font_size: "14dp"
+		width: 60
+	Label:
+		##Label que contiene la cantidad del producto
+		id: cantidad
+		text: "1"
+		color: 0,0,0,1
+		font_size: "14dp"
+		size_hint_x: None
+		width: "10dp"
+	Label:
+		##Label que contiene el costo total de precio producto* cantidad de producto
+		id: precioT
+		text: "1"
+		color: 0,0,0,1
+		font_size: "14dp"
+		width: 60
+	Button:
+		##Boton para reducir y eliminar productos
+		id: Close
+		size_hint: None,1
+		width: 33
+		Image:
+			source: 'menos.gif'
+			y: self.parent.y-36
+			x: self.parent.x-34
+			allow_stretch: False
+
+<Interfaz>:
+	##Clase principal
+	##Definicion de variables asociadas a la clase principal
+	money: money
+	discount: discount
+	total: total
+	save: save
+	printAct: imprimir
+	send: send
+	box: caja
+	txt: txt
+	grid: grilla
+	orientation: "vertical"
+	spacing: "4dp"
+	BoxLayout:
+		##Contenedor de la barra superior
+		orientation: "horizontal"
+		size_hint: 1, .15
+		Label:
+			text: "cliente"
+		Spinner:
+			id: txt
+		Label:
+			text: "Dependiente"
+		TextInput:
+			text: "HueHue"
+		Label:
+			text: "Fecha"
+		TextInput:
+			text: "14,14,14"
+	BoxLayout:
+	#Barra superior de la grilla
+		orientation:"horizontal"
+		size_hint: .75, .15
+		Label:
+			size_hint_x: None
+			width: "215dp"
+			text: "codigo"
+		Label:
+			text: "nombre"
+			size_hint: 2,1
+		Label:
+			text: "precio"
+		Label:
+			text: "cantidad"
+		Label:
+			text: "Total"
+	BoxLayout:
+		#Contenedor de la grilla de productos + precio
+		size_hint: 1,1.6
+		BoxLayout:	
+			canvas:
+				Color:
+					rgb: .75,.75,.75
+				Rectangle:
+					pos:self.pos
+					size:self.size
+			##Contenedor de la grilla de productos elegidos
+			ScrollView:
+				do_scroll_x: False
+				GridLayout:
+					orientation: "vertical"
+					spacing: "5dp"
+					cols: 1
+					id: caja
+					size_hint_y: None
+		BoxLayout:
+			orientation: "vertical"
+			size_hint: .25,1
+			GridLayout:
+				canvas:
+					Color:
+						rgba: 1,1,1,.33
+					Rectangle:
+						pos: self.pos
+						size: self.size
+				##Contenedor del desglose de precios
+				orientation: "vertical"
+				cols: 2
+				Label:
+					text: "Subtotal :"
+					size_hint: 1,.2
+				Label:
+					id: money
+					text: "$ 0"
+					size_hint: 1,.2
+				Label:
+					text: "Descuento :"
+					size_hint: 1,.08
+				Spinner:
+					id: discount
+					text: "0"
+					values: "0","5","10","15","20","25"
+					size_hint: 1,.08
+			Label:
+			##Precio Total
+				id: total
+				font_size: "30dp"
+				text: "$ 0"
+				size_hint: 1,.6
+			Button:
+			##Boton de Guardado
+				size_hint: 1,.4
+				id: save
+				text: "Guardar"
+			BoxLayout:
+				orientation: "horizontal"
+				size_hint: 1,.25
+				Button:
+					id: imprimir
+					text: "imprimir"
+				Button:
+					id: send
+					text: "enviar"
+	BoxLayout:
+		##Contenedor de la barra deslizante de productos
+		AbstractView:
+			ScrollView:
+				scroll_distance: "15dp"
+				do_scroll_y: False
+				GridLayout:
+					id: grilla
+					rows: 2
+					size_hint_x: None
+					orientation: "horizontal"
+					spacing: "20dp"
