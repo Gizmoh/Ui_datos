@@ -7,13 +7,13 @@ def connect():
 	Conecta la base de datos con el programa
 	"""
 	#Connect with the database
-	con = sqlite3.connect("/mnt/PHONE CARD/org.demo.BetaUi/pos.db")
+	con = sqlite3.connect("pos2.db")
 	con.row_factory = sqlite3.Row
 	return con
 
 def get_products():
 	"""
-	Obtiene productoa
+	Obtiene productos
 	"""
 	con = connect()
 	c = con.cursor()
