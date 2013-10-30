@@ -17,7 +17,7 @@ def get_products():
 	"""
 	con = connect()
 	c = con.cursor()
-	query = """SELECT name, supplier_code, gross_price FROM product WHERE id < 51"""
+	query = """SELECT name, supplier_code, gross_price FROM product WHERE _id < 51"""
 	result = c.execute(query)
 	products = result.fetchall()
 	con.close()
